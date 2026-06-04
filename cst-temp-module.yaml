@@ -1,0 +1,74 @@
+# ESP32-S3-1 N16R8 — all sensors, GPIO, scripts, PID, and UART link to the display unit.
+# Board: Espressif ESP32-S3-DevKitC-1 class modules (16 MB flash / 8 MB PSRAM).
+
+substitutions:
+  name: cst-temp-module
+  friendly_name: CST Temp Module
+  
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  name_add_mac_suffix: false
+  includes:
+    - ltc2983_handler.h
+  platformio_options:
+    board_build.flash_mode: dio
+    board_build.flash_size: 16MB
+
+esp32:
+  board: esp32-s3-devkitc-1
+  variant: esp32s3
+  framework:
+    type: esp-idf
+  flash_size: 16MB
+
+api:
+
+ota:
+  - platform: esphome
+
+packages:
+  wifi: !include common/wifi.yaml
+
+captive_portal:
+
+logger:
+  level: VERBOSE
+  hardware_uart: UART0
+  baud_rate: 115200
+  logs:
+    packet_transport: WARN
+    uart: WARN
+    uart_transport: WARN
+    rx_ui_cmd: INFO
+    api.connection: ERROR
+    max31865: VERBOSE
+    max6675: DEBUG
+    spi: VERBOSE
+    LTC2983: VERBOSE
+
+psram:
+  mode: octal
+  speed: 80MHz
+
+# SPI: CS=GPIO2 CLK=GPIO9 MOSI=GPIO5 MISO=GPIO4 (ltc2983_handler.h)
+
+sensor:
+  - platform: wifi_signal
+    id: io_wifi_signal_db
+    internal: true
+    update_interval: 30s
+
+  # --- DC2213A test: single PT1000 on RTDSH/RTDSL (CH5, sense on CH3) ---
+  - platform: template
+    name: "RTD 1"
+    id: rtd_1
+    unit_of_measurement: "°C"
+    accuracy_decimals: 2
+    state_class: "measurement"
+
+interval:
+  - interval: 1s
+    then:
+      - lambda: |-
+          read_ltc2983_single_rtd(id(rtd_1));

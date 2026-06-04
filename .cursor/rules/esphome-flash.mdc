@@ -1,0 +1,21 @@
+---
+description: ESPHome flash and monitor conventions for this project
+alwaysApply: true
+---
+
+# ESPHome Flash Command
+
+Always flash AND show logs in the same command. Never use `--no-logs`.
+
+```bash
+# ✅ CORRECT — always use this form (device pinned to avoid interactive prompt)
+cp -r "/Users/jeff/ESPHome Projects/CST Temp Module/." /tmp/cst-temp-module/ ; cd /tmp/cst-temp-module && esphome run cst-temp-module.yaml --device /dev/cu.wchusbserial5A461125811 2>&1
+
+# ❌ WRONG — never suppress logs, never omit --device
+cd /tmp/cst-temp-module && esphome run cst-temp-module.yaml --no-logs
+```
+
+- Source files live in `/Users/jeff/ESPHome Projects/CST Temp Module/`
+- Always `cp -r` the source to `/tmp/cst-temp-module/` first (path has spaces, ESPHome chokes on them), then run from `/tmp/cst-temp-module/`
+- Always pass `--device /dev/cu.wchusbserial5A461125811` to avoid the interactive serial-vs-OTA port prompt
+- Set `block_until_ms: 0` to background the flash, then use AwaitShell with pattern matching for log output
