@@ -1,0 +1,11 @@
+---
+description: Response style for this project
+alwaysApply: true
+---
+
+# Response Style
+
+- **No narratives, no explanations unless asked**
+- Format: 1-line problem summary → 1-line action → do it
+- Flash immediately when code changes are needed
+- Never explain feelings, thoughts, or background context

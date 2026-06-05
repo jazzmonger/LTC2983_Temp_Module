@@ -59,16 +59,15 @@ sensor:
     internal: true
     update_interval: 30s
 
-  # --- DC2213A test: single PT1000 on RTDSH/RTDSL (CH5, sense on CH3) ---
   - platform: template
-    name: "RTD 1"
+    name: "PT1000 Temperature"
     id: rtd_1
     unit_of_measurement: "°C"
     accuracy_decimals: 2
     state_class: "measurement"
 
 interval:
-  - interval: 1s
+  - interval: 5s
     then:
       - lambda: |-
           read_ltc2983_single_rtd(id(rtd_1));
