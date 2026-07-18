@@ -1,9 +1,6 @@
-# ESP32-S3-1 N16R8 — all sensors, GPIO, scripts, PID, and UART link to the display unit.
-# Board: Espressif ESP32-S3-DevKitC-1 class modules (16 MB flash / 8 MB PSRAM).
-
 substitutions:
-  name: cst-temp-module
-  friendly_name: CST Temp Module
+  name: ltc2983-temp-module
+  friendly_name: LTC2983
   
 esphome:
   name: ${name}
