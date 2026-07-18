@@ -2,7 +2,7 @@
 
 ESPHome firmware and KiCad hardware designs for reading precision temperature sensors through the [Analog Devices LTC2983](https://www.analog.com/en/products/ltc2983.html) — a 20-channel multi-sensor ADC supporting RTDs, thermocouples, diodes, and thermistors.
 
-This repo is a **standalone** ESPHome device that reads **5× PT1000 RTDs** and **5× K-type thermocouples** in one multi-channel conversion cycle, with per-channel fault sensors. The channel map matches the [CST 5-Pot](../CST_5Pot) IO board and can be adapted to other sensor combinations on unused LTC2983 channels.
+This repo is a **standalone** ESPHome device that reads **5× PT1000 RTDs** and **5× K-type thermocouples** in one multi-channel conversion cycle, with per-channel fault sensors. The channel map matches the CST 5-Pot IO board and can be adapted to other sensor combinations on unused LTC2983 channels.
 
 ## Hardware
 
