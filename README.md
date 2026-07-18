@@ -99,7 +99,7 @@ wifi_password: "YourPassword"
 Copy to `/tmp` before running ESPHome (avoids path issues):
 
 ```bash
-cp -r "/Users/jeffstevenson/Esphome_Projects/LTC2983_Temp_Module" /tmp/ltc2983-temp-module/
+cp -r "./LTC2983_Temp_Module" /tmp/ltc2983-temp-module/
 cd /tmp/ltc2983-temp-module
 esphome run LTC2983_Temp_Module.yaml --device /dev/cu.usbserial-XXXX
 ```
