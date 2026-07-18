@@ -1,7 +1,8 @@
 # LTC2983 Temperature Module
 
-ESPHome firmware and hardware designs for reading precision temperature sensors through the [Analog Devices LTC2983](https://www.analog.com/en/products/ltc2983.html) — a 20-channel multi-sensor ADC supporting RTDs, thermocouples, diodes, and thermistors.
+ESPHome firmware and KiCad hardware designs for reading precision temperature sensors through the [Analog Devices LTC2983](https://www.analog.com/en/products/ltc2983.html) — a 20-channel multi-sensor ADC supporting RTDs, thermocouples, diodes, and thermistors.
 
+This design uses 5 RTD sensors and 5 Thermocuple sensors but could be adapted to any combination along with additional sensors on other channels.
 
 ## Hardware
 
