@@ -93,35 +93,35 @@ sensor:
     state_class: measurement
     update_interval: never
   - platform: template
-    name: "TC Firepot 1"
+    name: "TC 1"
     id: tc_1
     unit_of_measurement: "°C"
     accuracy_decimals: 2
     state_class: measurement
     update_interval: never
   - platform: template
-    name: "TC Firepot 2"
+    name: "TC 2"
     id: tc_2
     unit_of_measurement: "°C"
     accuracy_decimals: 2
     state_class: measurement
     update_interval: never
   - platform: template
-    name: "TC Firepot 3"
+    name: "TC 3"
     id: tc_3
     unit_of_measurement: "°C"
     accuracy_decimals: 2
     state_class: measurement
     update_interval: never
   - platform: template
-    name: "TC Firepot 4"
+    name: "TC 4"
     id: tc_4
     unit_of_measurement: "°C"
     accuracy_decimals: 2
     state_class: measurement
     update_interval: never
   - platform: template
-    name: "TC Firepot 5"
+    name: "TC 5"
     id: tc_5
     unit_of_measurement: "°C"
     accuracy_decimals: 2
