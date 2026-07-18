@@ -1,7 +1,7 @@
 substitutions:
   name: ltc2983-temp-module
   friendly_name: LTC2983
-  
+
 esphome:
   name: ${name}
   friendly_name: ${friendly_name}
@@ -39,8 +39,6 @@ logger:
     uart_transport: WARN
     rx_ui_cmd: INFO
     api.connection: ERROR
-    max31865: VERBOSE
-    max6675: DEBUG
     spi: VERBOSE
     LTC2983: VERBOSE
 
@@ -48,6 +46,9 @@ psram:
   mode: octal
   speed: 80MHz
 
+# LTC2983 multi-channel temps (CST_5Pot packages/io_ltc2983.yaml layout):
+#   CH4/6/8/10/12 = RTD1–5 (PT1000, 2-wire, shared CH2 RSENSE)
+#   CH13–17 = TC1–5 (K-type, single-ended, CJC diode CH20)
 # SPI: CS=GPIO2 CLK=GPIO9 MOSI=GPIO5 MISO=GPIO4 (ltc2983_handler.h)
 
 sensor:
@@ -57,14 +58,128 @@ sensor:
     update_interval: 30s
 
   - platform: template
-    name: "PT1000 Temperature"
+    name: "RTD CH4"
     id: rtd_1
     unit_of_measurement: "°C"
     accuracy_decimals: 2
-    state_class: "measurement"
+    state_class: measurement
+    update_interval: never
+  - platform: template
+    name: "RTD CH6"
+    id: rtd_2
+    unit_of_measurement: "°C"
+    accuracy_decimals: 2
+    state_class: measurement
+    update_interval: never
+  - platform: template
+    name: "RTD CH8"
+    id: rtd_3
+    unit_of_measurement: "°C"
+    accuracy_decimals: 2
+    state_class: measurement
+    update_interval: never
+  - platform: template
+    name: "RTD CH10"
+    id: rtd_4
+    unit_of_measurement: "°C"
+    accuracy_decimals: 2
+    state_class: measurement
+    update_interval: never
+  - platform: template
+    name: "RTD CH12"
+    id: rtd_5
+    unit_of_measurement: "°C"
+    accuracy_decimals: 2
+    state_class: measurement
+    update_interval: never
+  - platform: template
+    name: "TC Firepot 1"
+    id: tc_1
+    unit_of_measurement: "°C"
+    accuracy_decimals: 2
+    state_class: measurement
+    update_interval: never
+  - platform: template
+    name: "TC Firepot 2"
+    id: tc_2
+    unit_of_measurement: "°C"
+    accuracy_decimals: 2
+    state_class: measurement
+    update_interval: never
+  - platform: template
+    name: "TC Firepot 3"
+    id: tc_3
+    unit_of_measurement: "°C"
+    accuracy_decimals: 2
+    state_class: measurement
+    update_interval: never
+  - platform: template
+    name: "TC Firepot 4"
+    id: tc_4
+    unit_of_measurement: "°C"
+    accuracy_decimals: 2
+    state_class: measurement
+    update_interval: never
+  - platform: template
+    name: "TC Firepot 5"
+    id: tc_5
+    unit_of_measurement: "°C"
+    accuracy_decimals: 2
+    state_class: measurement
+    update_interval: never
+
+text_sensor:
+  - platform: template
+    name: "Fault CH4"
+    id: fault_rtd_1
+    icon: mdi:alert-circle
+  - platform: template
+    name: "Fault CH6"
+    id: fault_rtd_2
+    icon: mdi:alert-circle
+  - platform: template
+    name: "Fault CH8"
+    id: fault_rtd_3
+    icon: mdi:alert-circle
+  - platform: template
+    name: "Fault CH10"
+    id: fault_rtd_4
+    icon: mdi:alert-circle
+  - platform: template
+    name: "Fault CH12"
+    id: fault_rtd_5
+    icon: mdi:alert-circle
+  - platform: template
+    name: "Fault TC1"
+    id: fault_tc_1
+    icon: mdi:alert-circle
+  - platform: template
+    name: "Fault TC2"
+    id: fault_tc_2
+    icon: mdi:alert-circle
+  - platform: template
+    name: "Fault TC3"
+    id: fault_tc_3
+    icon: mdi:alert-circle
+  - platform: template
+    name: "Fault TC4"
+    id: fault_tc_4
+    icon: mdi:alert-circle
+  - platform: template
+    name: "Fault TC5"
+    id: fault_tc_5
+    icon: mdi:alert-circle
 
 interval:
-  - interval: 5s
+  - interval: 500ms
     then:
       - lambda: |-
-          read_ltc2983_single_rtd(id(rtd_1));
+          LtcSensors s = {
+            .rtd = {id(rtd_1), id(rtd_2), id(rtd_3), id(rtd_4), id(rtd_5)},
+            .tc = {id(tc_1), id(tc_2), id(tc_3), id(tc_4), id(tc_5)},
+            .fault_rtd = {id(fault_rtd_1), id(fault_rtd_2), id(fault_rtd_3),
+                          id(fault_rtd_4), id(fault_rtd_5)},
+            .fault_tc = {id(fault_tc_1), id(fault_tc_2), id(fault_tc_3),
+                         id(fault_tc_4), id(fault_tc_5)},
+          };
+          read_ltc2983_sensors(s);
