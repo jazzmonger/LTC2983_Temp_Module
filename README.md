@@ -58,7 +58,7 @@ Polling uses non-blocking `read_ltc2983_sensors()`: start a multi-channel conver
 **Temperature sensors**
 
 - `RTD CH4` … `RTD CH12` — RTD 1–5 (°C)
-- `TC Firepot 1` … `TC Firepot 5` — thermocouples (°C)
+- `TC 1` … `TC 5` — thermocouples (°C)
 
 **Fault text sensors** (one per channel — `OK`, `Open Circuit`, `Overrange`, etc.)
 
